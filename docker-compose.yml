@@ -36,7 +36,7 @@ services:
       # - STATS_BATCH_SIZE
     volumes:
       - .:/opt/openstates/openstates/
-    entrypoint: ["poetry", "run", "os-update"]
+    entrypoint: ["/opt/openstates/openstates/entrypoint.sh"]
     networks:
       - openstates-network
     extra_hosts:

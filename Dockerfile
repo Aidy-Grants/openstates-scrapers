@@ -40,7 +40,7 @@ ADD poetry.lock /opt/openstates/openstates/
 ADD pyproject.toml /opt/openstates/openstates/
 WORKDIR /opt/openstates/openstates/
 ENV PYTHONPATH=./scrapers
-
+RUN poetry config virtualenvs.create false
 RUN poetry install --no-root
 
 ADD . /opt/openstates/openstates/
@@ -57,4 +57,7 @@ RUN poetry install \
 
 ENV OPENSSL_CONF=/opt/openstates/openstates/openssl.cnf
 
-ENTRYPOINT ["poetry", "run", "os-update"]
+COPY entrypoint.sh /opt/openstates/openstates/entrypoint.sh
+COPY upload_to_s3.py /opt/openstates/openstates/upload_to_s3.py
+RUN chmod +x /opt/openstates/openstates/entrypoint.sh
+ENTRYPOINT ["/opt/openstates/openstates/entrypoint.sh"]
