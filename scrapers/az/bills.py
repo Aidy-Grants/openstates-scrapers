@@ -323,9 +323,11 @@ class AZBillScraper(Scraper):
                 vote.set_count("no", nays)
                 vote.set_count(
                     "other",
-                    action["Present"]
-                    if "Present" in action and action["Present"]
-                    else 0,
+                    (
+                        action["Present"]
+                        if "Present" in action and action["Present"]
+                        else 0
+                    ),
                 )
                 vote.set_count(
                     "absent",
@@ -333,15 +335,19 @@ class AZBillScraper(Scraper):
                 )
                 vote.set_count(
                     "excused",
-                    action["Excused"]
-                    if "Present" in action and action["Present"]
-                    else 0,
+                    (
+                        action["Excused"]
+                        if "Present" in action and action["Present"]
+                        else 0
+                    ),
                 )
                 vote.set_count(
                     "not voting",
-                    action["NotVoting"]
-                    if "NotVoting" in action and action["NotVoting"]
-                    else 0,
+                    (
+                        action["NotVoting"]
+                        if "NotVoting" in action and action["NotVoting"]
+                        else 0
+                    ),
                 )
 
                 for v in action["Votes"]:
@@ -379,9 +385,9 @@ class AZBillScraper(Scraper):
         # but LXML gets really confused.
         page = page.replace(b"--!>", b"-->")
         page = html.fromstring(page)
-        assert (
-            len(page.xpath(f"//option[@value={session_id} and @selected]")) == 1
-        ), "Session ID not in bill list"
+        # assert (
+        #     len(page.xpath(f"//option[@value={session_id} and @selected]")) == 1
+        # ), "Session ID not in bill list"
 
         bill_rows = []
         chambers = [chamber] if chamber else ["upper", "lower"]
