@@ -162,6 +162,7 @@ class Nevada(State):
         },
     ]
     ignored_scraped_sessions = [
+        "83rd (2025) Session",
         "25th (2008) Special Session",
         "24th (2008) Special Session",
         "23rd (2007) Special Session",

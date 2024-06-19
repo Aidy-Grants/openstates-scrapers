@@ -349,6 +349,7 @@ class Utah(State):
         },
     ]
     ignored_scraped_sessions = [
+        "2024 3rd Special Session",
         "2025 General Session",
         "2023 1st House Extraordinary Session",
         "2013 1st House Session",

@@ -17,30 +17,21 @@ def upload_file(local_file_path, s3_client, bucket_name, s3_file_path, start_dat
             action_dates = [action["date"] for action in data.get("actions", [])]
             if action_dates:
                 # Parse dates assuming they are in UTC for consistency
-                latest_date = max(action_dates, key=lambda d: parser.parse(d))
-                latest_date_parsed = parser.parse(latest_date)
+                latest_date = max(action_dates, key=lambda d: parser.parse(d).date())
+                latest_date_parsed = parser.parse(latest_date).date()
 
-                # Ensure start_date is parsed to datetime object if not already
+                # Ensure start_date is parsed to date object if not already
                 if isinstance(start_date, str):
-                    start_date_parsed = parser.parse(start_date)
+                    start_date_parsed = parser.parse(start_date).date()
                 elif isinstance(start_date, datetime):
-                    start_date_parsed = start_date
+                    start_date_parsed = start_date.date()
                 else:
                     raise ValueError("start_date must be a string or datetime object")
-
-                # Remove timezone information if present to compare as naive
-                if (
-                    latest_date_parsed.tzinfo is not None
-                    and start_date_parsed.tzinfo is not None
-                ):
-                    latest_date_parsed = latest_date_parsed.replace(tzinfo=None)
-                    start_date_parsed = start_date_parsed.replace(tzinfo=None)
 
                 print("LATEST DATE", start_date_parsed, latest_date_parsed)
 
                 if not (start_date_parsed <= latest_date_parsed):
                     return
-
             else:
                 print("No action dates found in the file.")
                 return
