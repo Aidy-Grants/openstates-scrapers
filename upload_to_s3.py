@@ -81,7 +81,7 @@ def main():
     print("ARGS", args)
 
     # Handling the default for s3_folder_path after parsing
-    today_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    today_date = datetime.now().strftime("%Y-%m-%d")
     if args.start_date is None:
         args.start_date = "2000-01-01"
 

@@ -16,7 +16,7 @@ poetry run os-update "$STATE" bills --fastmode --scrape &
 POETRY_PID=$!
 
 # Set a timeout for 60 seconds (1 minute)
-sleep 180
+sleep 60
 
 # Check if the process is still running and kill it if so
 if kill -0 $POETRY_PID 2>/dev/null; then
