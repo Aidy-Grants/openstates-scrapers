@@ -234,6 +234,15 @@ class Arkansas(State):
             "end_date": "2024-05-09",
             "active": True,
         },
+        {
+            "_scraped_name": "Second Extraordinary Session, 2024",
+            "classification": "special",
+            "identifier": "2024S1",
+            "name": "2024 Second Extraordinary Session",
+            "start_date": "2024-06-17",
+            "end_date": "2024-06-20",
+            "active": False,
+        },
     ]
     ignored_scraped_sessions = [
         "Regular Session, 2009",
