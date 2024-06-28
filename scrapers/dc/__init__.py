@@ -64,6 +64,11 @@ class DistrictOfColumbia(State):
         },
     ]
     ignored_scraped_sessions = [
+        "23",
+        "22",
+        "21",
+        "20",
+        "19",
         "18",
         "17",
         "16",

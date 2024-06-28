@@ -10,42 +10,42 @@ settings = dict(SCRAPELIB_TIMEOUT=600)
 class Alaska(State):
     scrapers = {"bills": AKBillScraper, "events": AKEventScraper}
     legislative_sessions = [
-        {
-            "_scraped_name": "28th Legislature (2013-2014)",
-            "identifier": "28",
-            "name": "28th Legislature (2013-2014)",
-            "start_date": "2013-01-15",
-            "end_date": "2014-04-20",
-        },
-        {
-            "_scraped_name": "29th Legislature (2015-2016)",
-            "identifier": "29",
-            "name": "29th Legislature (2015-2016)",
-            "start_date": "2015-01-19",
-            "end_date": "2016-05-18",
-        },
-        {
-            "_scraped_name": "30th Legislature (2017-2018)",
-            "identifier": "30",
-            "name": "30th Legislature (2017-2018)",
-            "start_date": "2017-01-16",
-            "end_date": "2018-05-13",
-        },
-        {
-            "_scraped_name": "31st Legislature (2019-2020)",
-            "identifier": "31",
-            "name": "31st Legislature (2019-2020)",
-            "start_date": "2019-01-21",
-            "end_date": "2020-05-20",
-        },
-        {
-            "_scraped_name": "32nd Legislature (2021-2022)",
-            "identifier": "32",
-            "name": "32nd Legislature (2021-2022)",
-            "start_date": "2021-01-19",
-            "end_date": "2021-04-19",
-            "active": False,
-        },
+        # {
+        #     "_scraped_name": "28th Legislature (2013-2014)",
+        #     "identifier": "28",
+        #     "name": "28th Legislature (2013-2014)",
+        #     "start_date": "2013-01-15",
+        #     "end_date": "2014-04-20",
+        # },
+        # {
+        #     "_scraped_name": "29th Legislature (2015-2016)",
+        #     "identifier": "29",
+        #     "name": "29th Legislature (2015-2016)",
+        #     "start_date": "2015-01-19",
+        #     "end_date": "2016-05-18",
+        # },
+        # {
+        #     "_scraped_name": "30th Legislature (2017-2018)",
+        #     "identifier": "30",
+        #     "name": "30th Legislature (2017-2018)",
+        #     "start_date": "2017-01-16",
+        #     "end_date": "2018-05-13",
+        # },
+        # {
+        #     "_scraped_name": "31st Legislature (2019-2020)",
+        #     "identifier": "31",
+        #     "name": "31st Legislature (2019-2020)",
+        #     "start_date": "2019-01-21",
+        #     "end_date": "2020-05-20",
+        # },
+        # {
+        #     "_scraped_name": "32nd Legislature (2021-2022)",
+        #     "identifier": "32",
+        #     "name": "32nd Legislature (2021-2022)",
+        #     "start_date": "2021-01-19",
+        #     "end_date": "2021-04-19",
+        #     "active": False,
+        # },
         {
             "_scraped_name": "33rd Legislature (2023-2024)",
             "identifier": "33",
@@ -66,6 +66,11 @@ class Alaska(State):
         "20th Legislature (1997-1998)",
         "19th Legislature (1995-1996)",
         "18th Legislature (1993-1994)",
+        "28th Legislature (2013-2014)",
+        "29th Legislature (2015-2016)",
+        "30th Legislature (2017-2018)",
+        "31st Legislature (2019-2020)",
+        "32nd Legislature (2021-2022)",
     ]
 
     def get_session_list(self):

@@ -11,35 +11,35 @@ class Ohio(State):
         "bills": OHBillScraper,
     }
     legislative_sessions = [
-        {
-            "_scraped_name": "131st (2015-2016)",
-            "identifier": "131",
-            "name": "131st Legislature (2015-2016)",
-            "start_date": "2015-01-05",
-            "end_date": "2016-12-31",
-        },
-        {
-            "_scraped_name": "132nd (2017-2018)",
-            "identifier": "132",
-            "name": "132st Legislature (2017-2018)",
-            "start_date": "2017-01-02",
-            "end_date": "2018-12-31",
-        },
-        {
-            "_scraped_name": "133rd (2019-2020)",
-            "identifier": "133",
-            "name": "133rd Legislature (2019-2020)",
-            "start_date": "2019-01-07",
-            "end_date": "2020-12-31",
-        },
-        {
-            "_scraped_name": "134th (2021-2022)",
-            "identifier": "134",
-            "name": "134th Legislature (2021-2022)",
-            "start_date": "2021-01-04",
-            "end_date": "2022-12-31",
-            "active": False,
-        },
+        # {
+        #     "_scraped_name": "131st (2015-2016)",
+        #     "identifier": "131",
+        #     "name": "131st Legislature (2015-2016)",
+        #     "start_date": "2015-01-05",
+        #     "end_date": "2016-12-31",
+        # },
+        # {
+        #     "_scraped_name": "132nd (2017-2018)",
+        #     "identifier": "132",
+        #     "name": "132st Legislature (2017-2018)",
+        #     "start_date": "2017-01-02",
+        #     "end_date": "2018-12-31",
+        # },
+        # {
+        #     "_scraped_name": "133rd (2019-2020)",
+        #     "identifier": "133",
+        #     "name": "133rd Legislature (2019-2020)",
+        #     "start_date": "2019-01-07",
+        #     "end_date": "2020-12-31",
+        # },
+        # {
+        #     "_scraped_name": "134th (2021-2022)",
+        #     "identifier": "134",
+        #     "name": "134th Legislature (2021-2022)",
+        #     "start_date": "2021-01-04",
+        #     "end_date": "2022-12-31",
+        #     "active": False,
+        # },
         {
             "_scraped_name": "135th (2023-2024)",
             "identifier": "135",
@@ -49,7 +49,12 @@ class Ohio(State):
             "active": True,
         },
     ]
-    ignored_scraped_sessions = []
+    ignored_scraped_sessions = [
+        "131st (2015-2016)",
+        "132nd (2017-2018)",
+        "133rd (2019-2020)",
+        "134th (2021-2022)",
+    ]
 
     def get_session_list(self):
         sessions = url_xpath(

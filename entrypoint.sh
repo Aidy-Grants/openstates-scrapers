@@ -12,17 +12,17 @@ START_DATE=${START_DATE}
 
 echo "Processing for state: $STATE"
 # Run poetry command in the background
-poetry run os-update "$STATE" bills --fastmode --scrape &
+poetry run os-update "$STATE" bills --fastmode --scrape
 POETRY_PID=$!
 
-# Set a timeout for 60 seconds (1 minute)
-sleep 60
+# # Set a timeout for 60 seconds (1 minute)
+# sleep 60
 
-# Check if the process is still running and kill it if so
-if kill -0 $POETRY_PID 2>/dev/null; then
-    echo "The poetry command is still running after 1 minute, killing it now..."
-    kill -9 $POETRY_PID
-fi
+# # Check if the process is still running and kill it if so
+# if kill -0 $POETRY_PID 2>/dev/null; then
+#     echo "The poetry command is still running after 1 minute, killing it now..."
+#     kill -9 $POETRY_PID
+# fi
 
 # Proceed with the rest of the script
 echo "Running the scraper from $START_DATE to today"

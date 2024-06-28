@@ -11,10 +11,17 @@ from datetime import datetime
 def upload_file(local_file_path, s3_client, bucket_name, s3_file_path, start_date=None):
     try:
         filename = os.path.basename(local_file_path)
-        if start_date is not None and filename.startswith("bill_"):
+        if start_date is not None and (
+            filename.startswith("bill_") or filename.startswith("vote_event_")
+        ):
             with open(local_file_path, "r") as file:
                 data = json.load(file)
-            action_dates = [action["date"] for action in data.get("actions", [])]
+
+            if filename.startswith("bill_"):
+                action_dates = [action["date"] for action in data.get("actions", [])]
+            elif filename.startswith("vote_event_"):
+                action_dates = [data.get("start_date")]
+
             if action_dates:
                 # Parse dates assuming they are in UTC for consistency
                 latest_date = max(action_dates, key=lambda d: parser.parse(d).date())
@@ -29,7 +36,6 @@ def upload_file(local_file_path, s3_client, bucket_name, s3_file_path, start_dat
                     raise ValueError("start_date must be a string or datetime object")
 
                 print("LATEST DATE", start_date_parsed, latest_date_parsed)
-
                 if not (start_date_parsed <= latest_date_parsed):
                     return
             else:

@@ -36,8 +36,8 @@ services:
       # - STATS_BATCH_SIZE
     volumes:
       - .:/opt/openstates/openstates/
+    # entrypoint: ["/opt/openstates/openstates/entrypoint.sh"]
     entrypoint: ["poetry", "run", "os-update"]
-    entrypoint: ["/opt/openstates/openstates/entrypoint.sh"]
     networks:
       - openstates-network
     extra_hosts:
@@ -66,9 +66,12 @@ services:
       - STATS_RETRIES=1
       - STATS_ENDPOINT
       - STATS_JWT_TOKEN
+    depends_on:
+      - mysql
     volumes:
       - .:/opt/openstates/openstates/
-    entrypoint: ["poetry", "run", "os-update"]
+    # entrypoint: ["poetry", "run", "os-update"]
+    entrypoint: ["/ca-entrypoint.sh"]
     networks:
       - openstates-network
   ca-download:

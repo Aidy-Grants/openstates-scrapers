@@ -104,6 +104,19 @@ class NewHampshire(State):
         },
     ]
     ignored_scraped_sessions = [
+        "2011 Regular Session",
+        "2012 Regular Session",
+        "2013 Regular Session",
+        "2014 Regular Session",
+        "2015 Regular Session",
+        "2016 Regular Session",
+        "2017 Regular Session",
+        "2018 Regular Session",
+        "2019 Regular Session",
+        "2020 Regular Session",
+        "2021 Regular Session",
+        "2022 Regular Session",
+        "2023 Regular Session",
         "2013 Session",
         "2017 Session Bill Status Tables Link.txt",
     ]
