@@ -170,9 +170,17 @@ class Oklahoma(State):
             "identifier": "2024S3",
             "name": "2024 Third Special Session",
             "start_date": "2024-01-29",
-            # TODO: update end date
             "end_date": "2024-01-30",
-            "active": True,
+            "active": False,
+        },
+        {
+            "_scraped_name": "2024 Fourth Special Session",
+            "identifier": "2024S4",
+            "name": "2024 Third Fourth Session",
+            "start_date": "2024-06-12",
+            # TODO: update end date
+            "end_date": "2024-06-21",
+            "active": False,
         },
     ]
     ignored_scraped_sessions = [
