@@ -53,6 +53,7 @@ RUN poetry install \
     && rm -r /root/.cache/pypoetry/cache /root/.cache/pypoetry/artifacts/ \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+RUN pip install pytz
 
 ENV OPENSSL_CONF=/opt/openstates/openstates/openssl.cnf
 

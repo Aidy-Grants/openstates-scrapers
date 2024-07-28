@@ -6,6 +6,19 @@ import argparse
 from dateutil import parser
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
+import pytz
+
+
+def parse_date(date_str):
+    try:
+        # Parse the date, assuming UTC if no timezone is specified
+        parsed_date = parser.parse(date_str, fuzzy=True)
+        if parsed_date.tzinfo is None:
+            parsed_date = parsed_date.replace(tzinfo=pytz.UTC)
+        return parsed_date.date()
+    except ValueError:
+        print(f"Warning: Could not parse date '{date_str}'. Skipping.")
+        return None
 
 
 def upload_file(local_file_path, s3_client, bucket_name, s3_file_path, start_date=None):
@@ -16,37 +29,48 @@ def upload_file(local_file_path, s3_client, bucket_name, s3_file_path, start_dat
         ):
             with open(local_file_path, "r") as file:
                 data = json.load(file)
-
             if filename.startswith("bill_"):
                 action_dates = [action["date"] for action in data.get("actions", [])]
             elif filename.startswith("vote_event_"):
                 action_dates = [data.get("start_date")]
 
             if action_dates:
-                # Parse dates assuming they are in UTC for consistency
-                latest_date = max(action_dates, key=lambda d: parser.parse(d).date())
-                latest_date_parsed = parser.parse(latest_date).date()
-
-                # Ensure start_date is parsed to date object if not already
-                if isinstance(start_date, str):
-                    start_date_parsed = parser.parse(start_date).date()
-                elif isinstance(start_date, datetime):
-                    start_date_parsed = start_date.date()
+                parsed_dates = [
+                    parse_date(d) for d in action_dates if parse_date(d) is not None
+                ]
+                if parsed_dates:
+                    latest_date_parsed = max(parsed_dates)
+                    start_date_parsed = parse_date(start_date) if start_date else None
+                    print("LATEST", latest_date_parsed, "START", start_date_parsed)
+                    if start_date_parsed and start_date_parsed <= latest_date_parsed:
+                        print("UPLOADING")
+                        # proceed with upload
+                        s3_client.upload_file(
+                            local_file_path, bucket_name, s3_file_path
+                        )
+                        print(
+                            f"Uploaded {local_file_path} to s3://{bucket_name}/{s3_file_path}"
+                        )
+                    else:
+                        print(
+                            f"Date requirements not met for {filename}. Latest date: {latest_date_parsed}, Start date: {start_date_parsed}. Skipping upload."
+                        )
+                        return
                 else:
-                    raise ValueError("start_date must be a string or datetime object")
-
-                print("LATEST DATE", start_date_parsed, latest_date_parsed)
-                if not (start_date_parsed <= latest_date_parsed):
+                    print(
+                        f"No valid dates found in the file {filename}. Skipping upload."
+                    )
                     return
             else:
-                print("No action dates found in the file.")
+                print(f"No action dates found in the file {filename}. Skipping upload.")
                 return
-
-        s3_client.upload_file(local_file_path, bucket_name, s3_file_path)
-        print(f"Uploaded {local_file_path} to s3://{bucket_name}/{s3_file_path}")
+        else:
+            # If no date checking is required, proceed with upload
+            s3_client.upload_file(local_file_path, bucket_name, s3_file_path)
+            print(f"Uploaded {local_file_path} to s3://{bucket_name}/{s3_file_path}")
     except Exception as e:
         print(
-            f"Error uploading {local_file_path} to s3://{bucket_name}/{s3_file_path}: {e}"
+            f"Error processing or uploading {local_file_path} to s3://{bucket_name}/{s3_file_path}: {e}"
         )
 
 

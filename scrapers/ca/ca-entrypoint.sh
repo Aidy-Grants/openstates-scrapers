@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# if [[ -z $1 ]]; then
-#     echo "Missing argument for scrape type"
-#     exit 1
-# fi
 set -e
 
 START_DATE=${START_DATE}
@@ -34,20 +30,9 @@ if [ $? -ne 0 ]; then
 fi
 echo "ca-download completed successfully."
 
-# Run the scrape task
-# poetry run os-update ca $1
 echo "Running scrape task with poetry..."
 poetry run os-update ca bills --fastmode --scrape
 echo "Scrape task started."
 
 echo "S3 upload"
 python upload_to_s3.py ca --start_date $START_DATE
-# if [[ -z $1 ]]; then
-#     echo "Missing argument for scrape type"
-#     exit 1
-# fi
-# set -e
-
-# mysqld --user root --max_allowed_packet=512M &
-# /opt/openstates/openstates/scrapers/ca/download.sh
-# poetry run os-update ca $1
